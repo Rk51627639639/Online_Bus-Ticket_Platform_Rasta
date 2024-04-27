@@ -1,0 +1,160 @@
+<1>--------Buses Table:
+ 	CREATE TABLE buses (
+ 	 id INT AUTO_INCREMENT PRIMARY KEY,
+ 	 busNumber VARCHAR(255),
+ 	 capacity INT,
+ 	 type_id INT,
+ 	 FOREIGN KEY (type_id) REFERENCES bus_types(id)
+ 	 );
+
+	CREATE TABLE bus_types (
+ 	 id INT AUTO_INCREMENT PRIMARY KEY,
+	  type VARCHAR(255)
+	  );
+
+<2>-------Roues table:
+	CREATE TABLE routes (
+ 	 id INT AUTO_INCREMENT PRIMARY KEY,
+  	departureCity VARCHAR(255),
+  	arrivalCity VARCHAR(255)
+  	);
+  	
+  	
+ <3>------Schedules Table:
+ 	CREATE TABLE schedules (
+  	id INT AUTO_INCREMENT PRIMARY KEY,
+  	busId INT,
+  	routeId INT,
+	  departureTime DATETIME,
+  	arrivalTime DATETIME,
+ 	 availableSeats INT,
+  	FOREIGN KEY (busId) REFERENCES buses(id),
+  	FOREIGN KEY (routeId) REFERENCES routes(id)
+  	);
+  	
+  	
+<4>--------Passengers Table:
+	CREATE TABLE passengers (
+ 	 id INT AUTO_INCREMENT PRIMARY KEY,
+  	passengerName VARCHAR(255),
+  	email VARCHAR(255),
+  	phone VARCHAR(255)	
+  	);
+  	
+ 
+ <5>-----------Bookings Table:
+ 	CREATE TABLE bookings (
+ 	 id INT AUTO_INCREMENT PRIMARY KEY,
+ 	 passengerId INT,
+  	scheduleId INT,
+  	seatsBooked INT,
+  	FOREIGN KEY (passengerId) REFERENCES passengers(id),
+  	FOREIGN KEY (scheduleId) REFERENCES schedules(id)
+  	);
+
+
+<6>--------Payments Table:
+	CREATE TABLE payments (
+ 	 id INT AUTO_INCREMENT PRIMARY KEY,
+  	bookingId INT,
+ 	 paymentMethod VARCHAR(255),
+  	amount DECIMAL(10, 2),
+ 	 paymentDate DATETIME,
+ 	 FOREIGN KEY (bookingId) REFERENCES bookings(id)
+	);
+		
+<7>-------Users Table :
+	CREATE TABLE users (
+  	id INT AUTO_INCREMENT PRIMARY KEY,
+  	username VARCHAR(255),
+ 	 password VARCHAR(255),
+ 	 email VARCHAR(255)
+	);
+	
+	
+<8>--------Admins Table :
+	CREATE TABLE admins (
+	  id INT AUTO_INCREMENT PRIMARY KEY,
+ 	 username VARCHAR(255),
+ 	 password VARCHAR(255),
+ 	 email VARCHAR(255)
+	);
+	
+	
+<9>-----Feedback Table :
+	CREATE TABLE feedback (
+ 	 id INT AUTO_INCREMENT PRIMARY KEY,
+ 	 bookingId INT,
+ 	 rating INT,
+ 	 comment TEXT,
+ 	 FOREIGN KEY (bookingId) REFERENCES bookings(id)
+	);
+
+	
+	
+<10>-------Feedback Table 
+	CREATE TABLE bus_stops (
+  	id INT AUTO_INCREMENT PRIMARY KEY,
+ 	 name VARCHAR(255),
+  	city VARCHAR(255),
+  	latitude DECIMAL(10, 6),
+  	longitude DECIMAL(10, 6)
+	);
+	
+	
+<11>-------Route Stops Table 
+	CREATE TABLE route_stops (
+  	id INT AUTO_INCREMENT PRIMARY KEY,
+  	routeId INT,
+ 	 stopId INT,
+  	stopOrder INT,
+  	FOREIGN KEY (routeId) REFERENCES routes(id),
+ 	 FOREIGN KEY (stopId) REFERENCES bus_stops(id)
+	);
+	
+	
+<12>------Seat Layouts Table
+	CREATE TABLE seat_layouts (
+ 	 id INT AUTO_INCREMENT PRIMARY KEY,
+ 	 busId INT,
+ 	 rows INT,
+ 	 columns INT,
+ 	 layout TEXT,
+ 	 FOREIGN KEY (busId) REFERENCES buses(id)
+	);
+	
+<13>------Reviews Table 
+	CREATE TABLE reviews (
+ 	 id INT AUTO_INCREMENT PRIMARY KEY,
+ 	 busId INT,
+  	routeId INT,
+  	rating INT,
+ 	 comment TEXT,
+ 	 FOREIGN KEY (busId) REFERENCES buses(id),
+  	FOREIGN KEY (routeId) REFERENCES routes(id)
+	);
+
+
+<14>-------Amenities Table
+	CREATE TABLE amenities (
+ 	 id INT AUTO_INCREMENT PRIMARY KEY,
+  	name VARCHAR(255),
+ 	 description TEXT
+	);
+
+	CREATE TABLE bus_amenities (
+  	id INT AUTO_INCREMENT PRIMARY KEY,
+  	busId INT,
+  	amenityId INT,
+  	FOREIGN KEY (busId) REFERENCES buses(id),
+  	FOREIGN KEY (amenityId) REFERENCES amenities(id)
+	);
+
+
+
+
+
+
+		
+
+
